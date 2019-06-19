@@ -1,0 +1,20 @@
+{
+    "tableName": "test",
+    "schemaName": "default",
+    "topicName": "test",
+    "message": {
+        "dataFormat": "json",
+        "fields": [
+             {
+                "name": "quoteText",
+                "mapping": "quoteText",
+                "type": "VARCHAR"
+            },
+            {
+                "name": "quoteAuthor",
+                "mapping": "quoteAuthor",
+                "type": "VARCHAR"
+            }
+        ]
+    }
+}

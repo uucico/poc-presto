@@ -1,0 +1,92 @@
+version: "3"
+
+services:
+  minio:
+    image: minio/minio
+    volumes:
+      - minio-data:/data
+    ports:
+      - 9000:9000
+    env_file:
+      - ./env.conf.private
+    command: server /data
+
+  presto:
+    build: presto
+    depends_on:
+      - metastore
+      - minio
+    ports:
+      - 8080:8080
+    env_file:
+      - ./env.conf.private
+
+  metastore:
+    build: hive-metastore
+    restart: on-failure
+    depends_on:
+      - postgres
+    links:
+      - postgres
+      - minio
+    ports:
+      - 9083:9083
+      - 5008:5008
+    env_file:
+      - ./env.conf.private
+    healthcheck:
+      test: "netstat -lpn | grep 9083"
+      interval: 30s
+      retries: 5
+
+  postgres:
+    image: postgres:9.6.10
+    restart: always
+    user: postgres
+    env_file:
+      - ./env.conf.private
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: "psql -h localhost -U hivemetastore -c 'select 1' hivemetastore"
+      interval: 1s
+      retries: 90
+
+  sqlserver:
+    build: mssql
+    tty: true
+    env_file:
+      - ./env.conf.private
+    ports:
+      - 1433:1433
+    
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_CREATE_TOPICS: "test:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  kafka-producer:
+    build: kafka-producer
+    depends_on:
+      - kafka
+    restart: always
+
+volumes:
+  minio-data:
+  postgres-data:
+  oracle-data:
