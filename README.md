@@ -1,9 +1,9 @@
-# Presto demo with MS SQL Server, Hive on S3 (with Minio), and Kafka
+# Presto demo with MS SQL Server, Hive on S3 (with Minio) and Kafka. Yanagishima as web ui.
 
 ## usage
 1. Run with docker-compose
 2. Create required buckets in minio (UI in port 9000)
-3. Use presto in port 8080 (examples below)
+3. Use presto in port 8080 (examples below), or yanagishima on port 8088.
 
 ## table join demo
 
