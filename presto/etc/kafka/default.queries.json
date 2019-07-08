@@ -1,0 +1,70 @@
+{
+    "tableName": "queries",
+    "schemaName": "default",
+    "topicName": "queries",
+    "message": {
+        "dataFormat": "json",
+        "fields": [
+             {
+                "name": "service_name",
+                "mapping": "service_name",
+                "type": "VARCHAR"
+             },
+             {
+		"name": "query_id",
+		"mapping": "query_id",
+                "type": "VARCHAR"
+             },
+             {
+		"name": "cpu_time",
+		"mapping": "cpu_time",
+                "type": "BIGINT"
+             },
+             {
+		"name": "wall_time",
+		"mapping": "wall_time",
+                "type": "BIGINT"
+             },
+             {
+		"name": "start_time",
+		"mapping": "start_time",
+                "type": "VARCHAR"
+             },
+             {
+		"name": "end_time",
+		"mapping": "end_time",
+                "type": "VARCHAR"
+             },
+             {
+		"name": "queued_time",
+		"mapping": "queued_time",
+                "type": "BIGINT"
+             },
+             {
+		"name": "query_text",
+		"mapping": "query_text",
+                "type": "VARCHAR"
+             },
+             {
+		"name": "query_status",
+		"mapping": "query_status",
+                "type": "VARCHAR"
+             },
+             {
+		"name": "failure_message",
+		"mapping": "failure_message",
+                "type": "VARCHAR"
+             },
+             {
+		"name": "user",
+		"mapping": "user",
+                "type": "VARCHAR"
+             },
+             {
+		"name": "event_timestamp",
+		"mapping": "event_timestamp",
+                "type": "VARCHAR"
+             }
+        ]
+    }
+}
